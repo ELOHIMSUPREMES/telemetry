@@ -28,14 +28,14 @@
     "doc:open": "opn lib/docs/index.html",
     "doc:html": "typedoc --tsconfig src/ --includeDeclarations --target ES6 --mode file --out lib/docs",
     "doc:json": "typedoc src/ --target ES6 --mode file --json lib/docs/typedoc.json",
-    "version": "standard-version -t ''",
+    "version": "run-s clean test clean version:standard",
+    "version:standard": "standard-version -t ''",
     "clean": "trash lib dist/*.tgz",
     "all": "run-s test cov:check doc:html",
-    "prepare-release": "run-s clean version all",
     "package": "run-s package:pack package:move",
     "package:pack": "npm pack",
     "package:move": "mv telemetry-github-*.tgz dist/",
-    "publish:github": "run-s prepare-release package publish:pushtag publish:github-release",
+    "publish:github": "run-s package publish:pushtag publish:github-release",
     "publish:pushtag": "git push --follow-tags",
     "publish:github-release": "release-it"
   },
@@ -50,7 +50,7 @@
     "doc": "Generate HTML API documentation and open it in a browser",
     "doc:json": "Generate API documentation in typedoc JSON format",
     "version": "Bump package.json version, update CHANGELOG.md, tag release",
-    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
+    "publish:github": "Packages and publishes to github. Run `version` to version and tag before running this"
   },
   "author": {
     "name": "GitHub, Inc.",
